@@ -5,10 +5,9 @@
 Bikeshare-2
 
 ### Description
-Describe what your project is about and what it does
+The project consists in getting to know the bikeshare data for some US cities. To show the calculated statistics and relevant data there is an interactive environment where the user chooses data and filters which dataset to analyze.
 
 ### Files used
 Include the files used
 
 ### Credits
-It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
