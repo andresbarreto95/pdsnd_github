@@ -8,6 +8,7 @@ CITY_DATA = { 'chicago': '.gitignore/chicago.csv',
               'new york': '.gitignore/new_york_city.csv',
               'washington': '.gitignore/washington.csv' }
 
+
 def get_filters():
     # city filter input
     while True:
@@ -87,21 +88,23 @@ def get_filters():
     return city, month, day
 
 
-
 def load_data(city, month, day):
     """
-    Loads data for the specified city and filters by month and day if applicable.
+    Loads data for the specified city where it removes rows containing NaN values and filters by month and day if applicable.
 
     Args:
         (str) city - name of the city to analyze
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     Returns:
-        df - Pandas DataFrame containing city data filtered by month and day
+        df - Pandas DataFrame containing cleaned city data filtered by month and day
     """
 
     # load city into dataframe
     df = pd.read_csv(CITY_DATA[city])
+
+    # cleans data by eliminating rows containing Nan values
+    df = df.dropna(axis = 0)
 
     # convert the Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
@@ -125,7 +128,8 @@ def load_data(city, month, day):
 
 
 def time_stats(df):
-    """Displays statistics on the most frequent times of travel."""
+    """Displays statistics on the most frequent times of travel.
+    """
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
