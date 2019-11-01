@@ -6,6 +6,9 @@ import numpy as np
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york': 'new_york_city.csv',
               'washington': 'washington.csv' }
+CITY_DATA = { 'chicago': '.gitignore/chicago.csv',
+              'new york': '.gitignore/new_york_city.csv',
+              'washington': '.gitignore/washington.csv' }
 
 def get_filters():
     # city filter input
