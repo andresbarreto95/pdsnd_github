@@ -90,18 +90,21 @@ def get_filters():
 
 def load_data(city, month, day):
     """
-    Loads data for the specified city and filters by month and day if applicable.
+    Loads data for the specified city where it removes rows containing NaN values and filters by month and day if applicable.
 
     Args:
         (str) city - name of the city to analyze
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     Returns:
-        df - Pandas DataFrame containing city data filtered by month and day
+        df - Pandas DataFrame containing cleaned city data filtered by month and day
     """
 
     # load city into dataframe
     df = pd.read_csv(CITY_DATA[city])
+
+    # cleans data by eliminating rows containing Nan values
+    df = df.dropna(axis = 0)
 
     # convert the Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
@@ -121,21 +124,6 @@ def load_data(city, month, day):
     if day != 'all':
         df = df[df['day_of_week'] == day.title()]
 
-    return df
-
-
-def clean_data(df):
-    """ Cleans data by eliminating rows with NaN values
-
-    Args:
-        (df) Dataframe -
-    Returns:
-        df - Pandas DataFrame containing city data filtered by month and day
-    """
-
-    # Eliminates rows containing Nan values
-    df =
-    
     return df
 
 
@@ -295,7 +283,6 @@ def main():
         city, month, day = get_filters()
         df = load_data(city, month, day)
 
-        clean_data(df)
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
