@@ -212,11 +212,15 @@ def user_stats(df):
     except:
         print('There is no gender data in this time frame.\n')
     # Display earliest, most recent, and most common year of birth
+    # Display earliest, most recent, most common year of birth, and average age
     try:
         oldest_yr = int(df['Birth Year'].min())
         earliest_yr = int(df['Birth Year'].max())
         popular_yr =  int(df['Birth Year'].mode()[0])
         print('\nBirth Year:\n\nEarliest birth year: {}\nMost recent birth year: {}\nMost common year of birth: {}\n'.format(oldest_yr,earliest_yr,popular_yr))
+        oldest_yr = int(df['Birth Year'].min()) # provides oldest year of birth
+        earliest_yr = int(df['Birth Year'].max()) # provides most recent year of birth
+        popular_yr =  int(df['Birth Year'].mode()[0]) # provides most common year of birth
     except:
         print('There is no birth year data in this time frame.\n')
 
