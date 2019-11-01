@@ -251,17 +251,18 @@ def display_rows(df):
     display = input('\nWould you like to view individual trip data? (Enter yes or no)\n').lower()
 
     while True:
-        if display != 'yes' and display != 'no':
+        options = ['yes', 'y', 'no', 'n']
+        if display != options:
             print('\nSorry there was a mistake in your input, please try again.')
 
-        elif display == 'yes':
+        elif display == 'yes' and display == 'y':
             print(df[start_row:end_row])
 
             #  asks user if they wish to view 5 more lines of data
             while True:
                 display = input('\nWould you like to view 5 more rows of data? (Enter yes or no)\n').lower()
 
-                if display != 'yes' and display != 'no':
+                if display != 'options':
                     print('\nSorry there was a mistake in your input, please try again.')
                 elif display == 'yes':
                     start_row += 5
