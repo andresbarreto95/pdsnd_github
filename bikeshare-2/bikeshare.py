@@ -8,6 +8,7 @@ CITY_DATA = { 'chicago': '.gitignore/chicago.csv',
               'new york': '.gitignore/new_york_city.csv',
               'washington': '.gitignore/washington.csv' }
 
+
 def get_filters():
     # city filter input
     while True:
@@ -87,7 +88,6 @@ def get_filters():
     return city, month, day
 
 
-
 def load_data(city, month, day):
     """
     Loads data for the specified city and filters by month and day if applicable.
@@ -124,8 +124,24 @@ def load_data(city, month, day):
     return df
 
 
+def clean_data(df):
+    """ Cleans data by eliminating rows with NaN values
+
+    Args:
+        (df) Dataframe -
+    Returns:
+        df - Pandas DataFrame containing city data filtered by month and day
+    """
+
+    # Eliminates rows containing Nan values
+    df =
+    
+    return df
+
+
 def time_stats(df):
-    """Displays statistics on the most frequent times of travel."""
+    """Displays statistics on the most frequent times of travel.
+    """
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
@@ -279,6 +295,7 @@ def main():
         city, month, day = get_filters()
         df = load_data(city, month, day)
 
+        clean_data(df)
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
