@@ -220,23 +220,25 @@ def user_stats(df):
     try:
         oldest_yr = int(df['Birth Year'].min()) # provides oldest year of birth
         earliest_yr = int(df['Birth Year'].max()) # provides most recent year of birth
-        popular_yr =  int(df['Birth Year'].mode()[0]) # provides most common year of birth
+        popular_yr = int(df['Birth Year'].mode()[0]) # provides most common year of birth
 
-        print('\nBirth Year:\n\nEarliest birth year: {}\nMost recent birth year: {}\nMost common year of birth: {}\nMost common age: {}\n'.format(oldest_yr,earliest_yr,popular_yr))
+        print('\nBirth Year:\n\nEarliest birth year: {}\nMost recent birth year: {}\nMost common year of birth: {}\n'.format(oldest_yr,earliest_yr,popular_yr))
 
         df['Start Time'] = pd.to_datetime(df['Start Time'])
         df['year'] = df['Start Time'].dt.year
-        actual_yr =  int(df['year'].max()) # provides this year
+        actual_yr = int(df['year'].max()) # provides this year
+        average_yr = int(df['Birth Year'].mean())  # provides average age
 
-        average_age = actual_yr - int(df['Birth Year'].mean())  # provides average age
+        average_age = actual_yr - average_yr
         oldest_age = actual_yr - oldest_yr # provides oldest age
         youngest_age = actual_yr - earliest_yr # provides youngest age
 
-        print('\nBirth Year:\n\nMost common age: {}\nOldest age: {}\n Youngest age: {}'.format(average_age,oldest_age,youngest_age))
-
+        print('\nAge:\n\nMost common age: {}\nOldest age: {}\nYoungest age: {}'.format(average_age,oldest_age,youngest_age))
 
     except:
         print('There is no birth year or age data in this time frame.\n')
+
+
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
