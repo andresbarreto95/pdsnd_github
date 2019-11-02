@@ -258,6 +258,7 @@ def display_rows(df):
         options = ['yes', 'y', 'no', 'n']
         if display != options:
             print('\nSorry there was a mistake in your input, please try again.')
+            break
 
         elif display == 'yes' and display == 'y':
             print(df[start_row:end_row])
