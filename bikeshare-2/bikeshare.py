@@ -233,7 +233,7 @@ def user_stats(df):
         oldest_age = actual_yr - oldest_yr # provides oldest age
         youngest_age = actual_yr - earliest_yr # provides youngest age
 
-        print('\nBirth Year:\n\nMost common age: {}\nOldest age: {}\n Youngest age: {}'.format(average_age,oldest_age,youngest_age))
+        print('\nAge:\n\nMost common age: {}\nOldest age: {}\n Youngest age: {}'.format(average_age,oldest_age,youngest_age))
 
     except:
             print('There is no birth year or age data in this time frame.\n')
