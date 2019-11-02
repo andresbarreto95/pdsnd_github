@@ -8,6 +8,7 @@ CITY_DATA = { 'chicago': '.gitignore/chicago.csv',
               'new york': '.gitignore/new_york_city.csv',
               'washington': '.gitignore/washington.csv' }
 
+
 def get_filters():
     # city filter input
     while True:
@@ -87,21 +88,23 @@ def get_filters():
     return city, month, day
 
 
-
 def load_data(city, month, day):
     """
-    Loads data for the specified city and filters by month and day if applicable.
+    Loads data for the specified city where it removes rows containing NaN values and filters by month and day if applicable.
 
     Args:
         (str) city - name of the city to analyze
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     Returns:
-        df - Pandas DataFrame containing city data filtered by month and day
+        df - Pandas DataFrame containing cleaned city data filtered by month and day
     """
 
     # load city into dataframe
     df = pd.read_csv(CITY_DATA[city])
+
+    # cleans data by eliminating rows containing Nan values
+    df = df.dropna(axis = 0)
 
     # convert the Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
@@ -125,7 +128,8 @@ def load_data(city, month, day):
 
 
 def time_stats(df):
-    """Displays statistics on the most frequent times of travel."""
+    """Displays statistics on the most frequent times of travel.
+    """
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
@@ -212,26 +216,24 @@ def user_stats(df):
         print('\nGender:\n\n{}\n'.format(gender_counts))
     except:
         print('There is no gender data in this time frame.\n')
-    # Display earliest, most recent,and most common year of birth and age 
+    # Display earliest, most recent, most common year of birth, and average age
     try:
-        # Calculating birth year statistics
         oldest_yr = int(df['Birth Year'].min()) # provides oldest year of birth
         earliest_yr = int(df['Birth Year'].max()) # provides most recent year of birth
         popular_yr =  int(df['Birth Year'].mode()[0]) # provides most common year of birth
 
-        print('\nBirth Year:\n\nEarliest birth year: {}\nMost recent birth year: {}\nMost common year of birth: {}\nMost common age: {}\n'.format(oldest_yr,earliest_yr,popular_yr,average_age))
+        print('\nBirth Year:\n\nEarliest birth year: {}\nMost recent birth year: {}\nMost common year of birth: {}\nMost common age: {}\n'.format(oldest_yr,earliest_yr,popular_yr))
 
-        # Extracting year to obtain current year
         df['Start Time'] = pd.to_datetime(df['Start Time'])
         df['year'] = df['Start Time'].dt.year
-        current_yr = int(df['year'].max()) # provides most current year
+        actual_yr =  int(df['year'].max()) # provides this year
 
-        # Calculating age statistics
-        average_age = current_yr - int(df['Birth Year'].mean())  # provides average age
-        oldest_age = current_yr - oldest_yr # provides oldest age
-        youngest_age = current_yr - earliest_yr # provides youngest age
+        average_age = actual_yr - int(df['Birth Year'].mean())  # provides average age
+        oldest_age = actual_yr - oldest_yr # provides oldest age
+        youngest_age = actual_yr - earliest_yr # provides youngest age
 
         print('\nBirth Year:\n\nMost common age: {}\nOldest age: {}\n Youngest age: {}'.format(average_age,oldest_age,youngest_age))
+
 
     except:
         print('There is no birth year or age data in this time frame.\n')
@@ -255,6 +257,7 @@ def display_rows(df):
     while True:
         if display != 'yes' and display != 'no':
             print('\nSorry there was a mistake in your input, please try again.')
+            break
 
         elif display == 'yes':
             print(df[start_row:end_row])
