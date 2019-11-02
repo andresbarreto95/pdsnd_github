@@ -179,7 +179,7 @@ def station_stats(df):
     print('-'*40)
 
 
-def trip_duration_stats(df):
+def trip_stats(df, month, day):
     """Displays statistics on the total and average trip duration."""
 
     print('\nCalculating Trip Duration...\n')
@@ -187,11 +187,20 @@ def trip_duration_stats(df):
 
     # display total travel time
     total_travel = df['Trip Duration'].sum()/60
-    print('Total travel time: {} minutes'.format(total_travel))
+    print('Total travel time: {} minutes'.format(round(total_travel,2))
 
     # display mean travel time
-    average_travel = df['Trip Duration'].mean()/60
-    print('Average travel time: {} minutes'.format(round(average_travel,2)))
+    average_travel = df['Trip Duration'].mean()/360
+    print('Average travel time: {} hours'.format(round(average_travel,2)))
+
+    # display total amountof trips made in the period
+    total_trips = df['Trip Duration'].count()
+    print('Total trips taken in the period: {}').format(total_trips)
+
+    # display average number of trips through the period
+    if month == 'all' and day == 'all':
+        average_trips = total_trips
+        print('')
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -288,7 +297,7 @@ def main():
 
         time_stats(df)
         station_stats(df)
-        trip_duration_stats(df)
+        trip_stats(df, month, day)
         user_stats(df)
         display_rows(df)
 
