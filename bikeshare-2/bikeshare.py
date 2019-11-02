@@ -257,6 +257,7 @@ def display_rows(df):
     while True:
         if display != 'yes' and display != 'no':
             print('\nSorry there was a mistake in your input, please try again.')
+            break
 
         elif display == 'yes':
             print(df[start_row:end_row])
